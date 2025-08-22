@@ -1,4 +1,5 @@
 # Utilib
+[[العربية]](readme.ar.md)
 
 A collection of miscellaneous helpers for Alusus programming language.
 
