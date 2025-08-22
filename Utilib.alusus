@@ -1,0 +1,62 @@
+import "Srl/String";
+import "Srl/System";
+import "Srl/Time";
+import "Core/Data";
+import "Spp";
+
+@merge module Utilib {
+    //=============
+    // Misc Helpers
+
+    macro charsPtrOrDefault [val, default] CharsPtr().{
+        this = val;
+        if this == 0 this = default;
+    }
+
+    macro envVarOrDefault[varName, defaultVal] charsPtrOrDefault[System.getEnv(varName), default];
+
+    //=======================
+    // AST Generation Helpers
+
+    macro strLiteralFromVal [val] preprocess {
+        Spp.astMgr.insertAst(Core.Data.Ast.StringLiteral(val));
+    }
+
+    macro strLiteralFromVal [val, default] strLiteralFromVal[charsPtrOrDefault[val, default]];
+
+    macro strLiteralFromEnvVar [varName] strLiteralFromVal[System.getEnv(varName)];
+
+    macro strLiteralFromEnvVar [varName, default] strLiteralFromVal[System.getEnv(varName), default];
+
+    macro intLiteralFromInt [val] preprocess {
+        Spp.astMgr.insertAst(Core.Data.Ast.IntegerLiteral(String() + val));
+    }
+
+    macro intLiteralFromCharsPtr [val] preprocess {
+        Spp.astMgr.insertAst(Core.Data.Ast.IntegerLiteral(val));
+    }
+
+    macro intLiteralFromCharsPtr [val, default] intLiteralFromCharsPtr[charsPtrOrDefault[val, default]];
+
+    macro intLiteralFromEnvVar [varName] intLiteralFromCharsPtr[System.getEnv(varName)];
+
+    macro intLiteralFromEnvVar [varName, default] intLiteralFromCharsPtr[System.getEnv(varName), default];
+
+    //==================
+    // Time/Date Helpers
+
+    function getCurrentStringDateTime () => String {
+        return getCurrentStringDateTime(Time.getTimestamp(0));
+    }
+
+    function getCurrentStringDateTime (timestamp: ArchInt) => String {
+        def time: Time.DetailedTime;
+        Time.getDetailedTime؛(timestamp~ptr, time~ptr);
+        def buf: array[Char, 100];
+        String.assign(
+            buf~ptr, "%04d-%02d-%02d %02d:%02d:%02d",
+            time.year + 1900, time.month + 1, time.day, time.hour, time.minute, time.second
+        );
+        return String(buf~ptr);
+    }
+}

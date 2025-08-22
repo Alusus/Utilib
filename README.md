@@ -1,2 +1,0 @@
-# Utilib
-A utilities library.

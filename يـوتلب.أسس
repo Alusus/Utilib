@@ -1,0 +1,16 @@
+اشمل "Utilib.alusus"؛
+
+عرف يـوتلب: لقب Utilib؛
+@دمج وحدة يـوتلب {
+    // مساعدات منوعة
+    عرف محارف_أو_قيمة_مبدئية: لقب charsPtrOrDefault؛
+    عرف متغير_محيطي_أو_قيمة_مبدئية: لقب envVarOrDefault؛
+    // مساعدات توليد ش.ب.م
+    عرف سلسلة_محارف_من_قيمة: لقب strLiteralFromVal؛
+    عرف سلسلة_محارف_من_متغير_محيطي: لقب strLiteralFromEnvVar؛
+    عرف صحيح_حرفي_من_صحيح: لقب intLiteralFromInt؛
+    عرف صحيح_حرفي_من_محارف: لقب intLiteralFromCharsPtr؛
+    عرف صحيح_حرفي_من_متغير_محيطي: لقب intLiteralFromEnvVar؛
+    // مساعدات الوقت والتاريخ
+    عرف هات_التاريخ_والوقت_الحالي_كنص: لقب getCurrentStringDateTime؛
+}
