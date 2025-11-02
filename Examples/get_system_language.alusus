@@ -1,0 +1,7 @@
+import "Srl/Console";
+import "Srl/String";
+import "Apm";
+Apm.importFile("Alusus/Utilib");
+
+def lang: Srl.String = Utilib.getSystemLanguage();
+Srl.Console.print("System language: %s\n", lang.buf);

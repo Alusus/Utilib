@@ -27,9 +27,19 @@ Fetch an environment variable or return a default string if the env var is not d
 * `varName` (CharsPtr) — name of the environment variable.
 * `defaultVal` (CharsPtr) — fallback value if the env var is unset.
 
+### getSystemLanguage
+
+```
+function getSystemLanguage(): String
+```
+
+Returns the language code of the system's language.
+
 ---
 
 ## AST Generation Helpers
+
+Located under the `Ast` sub-module.
 
 These macros insert AST nodes at preprocessing time via `Spp.astMgr`.
 
@@ -124,4 +134,46 @@ Return the date and time for the given timestamp as a formatted string.
 **Returns**
 
 A `String` in the format: `YYYY-MM-DD HH:MM:SS`
+
+---
+
+## Console Helpers
+
+Located under the `Console` sub-module.
+
+### getStealthChar
+
+```
+function getStealthChar(): Int
+```
+
+Read a single character from the console without echoing it to the screen. This function temporarily disables terminal
+echo and canonical mode, reads one character, then restores the original terminal settings.
+
+**Returns**
+
+An `Int` representing the character code read from the console.
+
+**Platform Notes**
+* On Windows, this uses the `_getch` function.
+* On Unix-like systems, this uses termios to temporarily disable echo.
+
+### getStealthString
+
+```
+function getStealthString(): String
+```
+
+Read a string from the console securely without displaying the input. This function reads characters one by one using
+`getStealthChar()` and handles special keys:
+* **Enter** (newline or carriage return): Completes input and returns the string.
+* **Backspace/Delete**: Removes the last character, with proper UTF-8 multi-byte character support.
+
+**Returns**
+
+A `String` containing the entered text.
+
+**Example**
+
+See [Examples/get_password.alusus](Examples/get_password.alusus) for a complete example.
 
