@@ -9,8 +9,8 @@
             def lFlag: Word[32];              // local flags
             def line: Word[8];                // line discipline
             def cc: array[Word[8], NCCS];     // control characters
-            // def ispeed: Word[32];          // input speed
-            // def ospeed: Word[32];          // output speed
+            def ispeed: Word[32];             // input speed
+            def ospeed: Word[32];             // output speed
         }
 
         // tcgetattr function declaration
